@@ -1,0 +1,12 @@
+[Unit]
+Description=Vantage Agent
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/vantage-agent/vantage-agent.env
+ExecStart=/srv/vantage-agent-venv/bin/vantage-agent
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

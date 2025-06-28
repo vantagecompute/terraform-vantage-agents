@@ -1,0 +1,12 @@
+[Unit]
+Description=Jobbergate Agent
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/jobbergate-agent/jobbergate-agent.env
+ExecStart=/srv/jobbergate-agent-venv/bin/jobbergate-agent
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
