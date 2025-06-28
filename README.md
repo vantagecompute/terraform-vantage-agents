@@ -1,4 +1,3 @@
-
 # terraform-vantage-agents
 
 Terraform module to automate the installation and configuration of both **vantage-agent** and **jobbergate-agent** on a remote Linux host. Supports installation via **Snap** (default) or **PyPI** (virtualenv + systemd), with all configuration handled for you.
