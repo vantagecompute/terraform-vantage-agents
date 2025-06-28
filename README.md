@@ -80,3 +80,16 @@ module "vantage_agents" {
 ## License
 
 Apache 2.0
+
+---
+
+## Copyright
+
+Copyright 2025 Vantage Compute Corporation.
+
+## Contact
+
+For questions, support, or to report issues, please contact:
+
+- GitHub Issues: https://github.com/vantagecompute/terraform-vantage-agents/issues
+- Email: support@vantagecompute.com
