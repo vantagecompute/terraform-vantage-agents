@@ -8,7 +8,7 @@ check() { # check "description" command...
   shift
   if "$@" >/dev/null 2>&1; then echo "ok    $what"; else echo "FAIL  $what"; fail=1; fi
 }
-# shellcheck disable=SC2329  # called through check()
+# shellcheck disable=SC2317,SC2329  # called through check(); the code differs by shellcheck version
 mode_owner() { [ "$(stat -c '%a %U' "$1")" = "$2 $3" ]; }
 
 check "reconciler env is 0600 root" mode_owner /etc/vantage/slurm-accounts-reconciler/env 600 root
