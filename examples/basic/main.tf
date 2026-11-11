@@ -29,6 +29,4 @@ module "vantage_agents" {
 
   vref_api_url = "https://vref.example.com"
 
-  # vref-agent has no installable release yet.
-  install_vref_agent = false
 }

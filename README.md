@@ -105,7 +105,7 @@ For vref-agent the module also creates a `vrefagent` system user and mints a Slu
 - **`latest` is not tracked.** Terraform cannot see that the CDN's `latest` moved, so it does not reinstall. Pin versions, and to pick up a new `latest` run `terraform apply -replace='module.vantage_agents.terraform_data.reconciler'` (and the same for the others).
 - **Protect your state.** Terraform stores the client secret and the LDAP password in its state file, even though the variables are `sensitive`. Use an encrypted remote backend or restrict access to the state.
 - **`terraform destroy` does not uninstall.** It forgets the resources and leaves the agents on the node.
-- **vref-agent has no installable release yet.** At the time of writing (2026-11-11) the `vref-agent` build the artifact CDN serves (0.1.3) is the older cloud-side agent and has no `systemd-setup` command, so its install script stops with a clear message. Set `install_vref_agent = false` until a release that includes the on-cluster agent is published.
+- **vref-agent needs 0.1.5 or newer.** Releases from 0.1.5 include the on-cluster agent and its `systemd-setup` command. The older 0.1.3 build is the cloud-side agent and has none, so the install script stops with a clear message. Set `install_vref_agent = false` to leave it out.
 - **The LDAP base DN is fixed** to `dc=vantagecompute,dc=ai`, so the reconciler works against the Vantage-hosted directory only.
 - **Image helper.** When the node has `/opt/vantage/bin/slurm-accounts-reconciler-identity` (the Vantage image does), the reconciler runs it before it starts, so the Slurm user is an accounting operator.
 
