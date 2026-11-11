@@ -17,3 +17,6 @@ terraform.rc
 *.swp
 *~
 .DS_Store
+
+# Terraform lock files (the module needs no providers)
+.terraform.lock.hcl

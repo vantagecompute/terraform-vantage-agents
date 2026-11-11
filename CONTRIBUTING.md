@@ -6,7 +6,7 @@ Thank you for your interest in contributing!
 
 1. Fork the repository and create your branch from `main`.
 2. Make your changes with clear commit messages.
-3. Ensure your code is well-documented and tested.
+3. Ensure your code is well-documented and tested: run `just lint`, and `just test` against a throwaway Ubuntu 26.04 VM (see the README).
 4. Open a pull request describing your changes.
 
 ## Code Style
