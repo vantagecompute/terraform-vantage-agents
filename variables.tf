@@ -171,22 +171,33 @@ variable "artifacts_url" {
   default     = "https://vantage-artifacts.vantagecompute.ai"
 }
 
-variable "reconciler_version" {
-  description = "slurm-accounts-reconciler version. \"latest\" can change under you, and Terraform will not notice, so pin it in production."
+variable "release_track" {
+  description = "The release line, MAJOR.MINOR, each binary follows: the newest release on it, so a 0.2 release never reaches a node on 0.1. A version variable below overrides it for one binary."
   type        = string
-  default     = "latest"
+  default     = "0.1"
+
+  validation {
+    condition     = can(regex("^[0-9]+\\.[0-9]+$", var.release_track))
+    error_message = "release_track must be a release line, MAJOR.MINOR, such as 0.1."
+  }
+}
+
+variable "reconciler_version" {
+  description = "slurm-accounts-reconciler version, or null to follow release_track. The track can move under you, and Terraform will not notice, so pin it in production."
+  type        = string
+  default     = null
 }
 
 variable "vref_agent_version" {
-  description = "vref-agent version. Pin it in production."
+  description = "vref-agent version, or null to follow release_track. Pin it in production."
   type        = string
-  default     = "latest"
+  default     = null
 }
 
 variable "presence_agent_version" {
-  description = "cluster-presence-agent version. Pin it in production."
+  description = "cluster-presence-agent version, or null to follow release_track. Pin it in production."
   type        = string
-  default     = "latest"
+  default     = null
 }
 
 variable "slurmrestd_url" {
