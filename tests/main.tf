@@ -8,9 +8,10 @@ variable "ssh_private_key" {
   sensitive = true
 }
 
+# null follows the module's release_track.
 variable "reconciler_version" {
   type    = string
-  default = "latest"
+  default = null
 }
 
 module "agents" {

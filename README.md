@@ -77,9 +77,10 @@ Optional:
 | `install_vref_agent` | `true` | Install vref-agent. |
 | `install_presence_agent` | `true` | Install the presence agent. |
 | `artifacts_url` | `https://vantage-artifacts.vantagecompute.ai` | Where the binaries are downloaded from. |
-| `reconciler_version` | `latest` | Reconciler version. Pin it in production. |
-| `vref_agent_version` | `latest` | vref-agent version. Pin it in production. |
-| `presence_agent_version` | `latest` | Presence agent version. Pin it in production. |
+| `release_track` | `0.1` | The release line, `MAJOR.MINOR`, each binary follows: the newest release on it. A `0.2` release never reaches a node on `0.1`. |
+| `reconciler_version` | `release_track` | Reconciler version. Pin it in production. |
+| `vref_agent_version` | `release_track` | vref-agent version. Pin it in production. |
+| `presence_agent_version` | `release_track` | Presence agent version. Pin it in production. |
 | `slurmrestd_url` | `http://127.0.0.1:6820` | The cluster's slurmrestd. |
 | `slurm_user` | `slurm` | The user slurmctld runs as. |
 | `vref_container_engine` | empty | `pyxis` or `apptainer`; leave empty when the cluster runs neither. |
@@ -102,7 +103,7 @@ For vref-agent the module also creates a `vrefagent` system user and mints a Slu
 
 ## Things to know
 
-- **`latest` is not tracked.** Terraform cannot see that the CDN's `latest` moved, so it does not reinstall. Pin versions, and to pick up a new `latest` run `terraform apply -replace='module.vantage_agents.terraform_data.reconciler'` (and the same for the others).
+- **The release track is not tracked.** Terraform cannot see that the CDN's `0.1` (or `latest`) moved, so it does not reinstall. Pin versions, and to pick up a new release on the track run `terraform apply -replace='module.vantage_agents.terraform_data.reconciler'` (and the same for the others).
 - **Protect your state.** Terraform stores the client secret and the LDAP password in its state file, even though the variables are `sensitive`. Use an encrypted remote backend or restrict access to the state.
 - **`terraform destroy` does not uninstall.** It forgets the resources and leaves the agents on the node.
 - **vref-agent needs 0.1.5 or newer.** Releases from 0.1.5 include the on-cluster agent and its `systemd-setup` command. The older 0.1.3 build is the cloud-side agent and has none, so the install script stops with a clear message. Set `install_vref_agent = false` to leave it out.
