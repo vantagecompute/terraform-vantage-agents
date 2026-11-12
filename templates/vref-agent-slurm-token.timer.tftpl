@@ -1,0 +1,10 @@
+# Managed by Terraform (module terraform-vantage-agents).
+[Unit]
+Description=Refresh the Slurm token vref-agent reads with
+
+[Timer]
+OnCalendar=${refresh}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
