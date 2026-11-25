@@ -8,12 +8,6 @@ variable "ssh_private_key" {
   sensitive = true
 }
 
-# null follows the module's release_track.
-variable "reconciler_version" {
-  type    = string
-  default = null
-}
-
 module "agents" {
   source = "../"
 
@@ -31,5 +25,4 @@ module "agents" {
   ldap_organization_id = "org-123"
   ldap_bind_password   = "bind-password"
   vref_api_url         = "https://vref.example.test"
-  reconciler_version   = var.reconciler_version
 }
