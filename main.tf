@@ -59,20 +59,20 @@ locals {
         JWT_KEY_FILE  = local.jwt_key_file
       }
       reconciler = {
-        RECONCILER_VERSION         = var.reconciler_version
+        RECONCILER_VERSION         = coalesce(var.reconciler_version, var.release_track)
         RECONCILER_DIR             = local.reconciler_dir
         RECONCILER_KEY_COPY        = local.reconciler_key_copy
         RECONCILER_IDENTITY_HELPER = local.reconciler_helper
       }
       vref = {
-        VREF_AGENT_VERSION  = var.vref_agent_version
+        VREF_AGENT_VERSION  = coalesce(var.vref_agent_version, var.release_track)
         VREF_DIR            = local.vref_dir
         VREF_TOKEN_FILE     = local.vref_token_file
         VREF_TOKEN_SCRIPT   = local.vref_token_script_path
         VREF_SLURM_IDENTITY = local.vref_slurm_identity
       }
       presence = {
-        PRESENCE_AGENT_VERSION = var.presence_agent_version
+        PRESENCE_AGENT_VERSION = coalesce(var.presence_agent_version, var.release_track)
         PRESENCE_DIR           = local.presence_dir
       }
     } : group => { for name, value in settings : name => "'${replace(value, "'", "'\\''")}'" }
