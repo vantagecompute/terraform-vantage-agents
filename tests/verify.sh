@@ -29,11 +29,10 @@ check "first setting of the reconciler env is on its own line" bash -c "sed -n 2
 check "first setting of the vref-agent env is on its own line" bash -c "sed -n 2p /etc/vantage/vref-agent/env | grep -q '^VREF_AGENT_API_URL='"
 check "first setting of the presence env is on its own line" bash -c "sed -n 2p /etc/vantage/cluster-presence-agent/env | grep -q '^CLUSTER_PRESENCE_AGENT_OIDC_DOMAIN='"
 
-for name in slurm-accounts-reconciler vref-agent cluster-presence-agent; do
-  check "the lock file has a line for $name" grep -Eq "^$name [^ ]+ [0-9a-f]{64}\$" /etc/vantage/artifacts.lock
-done
 # The test pins nothing, so every binary follows the default release track.
-check "vref-agent follows the 0.1 track" grep -Eq '^vref-agent 0[.]1 [0-9a-f]{64}$' /etc/vantage/artifacts.lock
+for name in slurm-accounts-reconciler vref-agent cluster-presence-agent; do
+  check "$name follows the 0.1 track" grep -Eq "^$name 0[.]1 [0-9a-f]{64}\$" /etc/vantage/artifacts.lock
+done
 
 for unit in slurm-accounts-reconciler.service vref-agent.timer vref-agent.path vref-agent-slurm-token.timer cluster-presence-agent.timer; do
   check "$unit is enabled" systemctl is-enabled "$unit"
